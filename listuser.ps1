@@ -1,1 +1,0 @@
-﻿Get-LocalUser | select Name
