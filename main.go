@@ -2,11 +2,9 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"fmt"
 	"io"
 	"os"
-	"os/exec"
 	"os/user"
 	"strings"
 	"time"
@@ -19,11 +17,6 @@ import (
 
 //Users crea una matriz de string para listar los usuarios
 var Users []string
-
-// PowerShell struct
-type PowerShell struct {
-	powerShell string
-}
 
 //GetUserListWindows lista los usuarios locales para windows
 func GetUserListWindows() {
@@ -45,29 +38,6 @@ func GetUserListWindows() {
 		fmt.Printf("\tBad Password Count:           %d\r\n", u.BadPasswordCount)
 		fmt.Printf("\tNumber Of Logons:             %d\r\n", u.NumberOfLogons)
 	}
-}
-
-//New Crea una nueva sesion de ps
-func New() *PowerShell {
-	ps, _ := exec.LookPath("powershell.exe")
-	return &PowerShell{
-		powerShell: ps,
-	}
-}
-
-// ejecuta el comando y el argunmento
-func (p *PowerShell) execute(args ...string) (stdOut string, stdErr string, err error) {
-	args = append([]string{"-NoProfile", "-NonInteractive"}, args...)
-	cmd := exec.Command(p.powerShell, args...)
-
-	var stdout bytes.Buffer
-	var stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-
-	err = cmd.Run()
-	stdOut, stdErr = stdout.String(), stderr.String()
-	return
 }
 
 //GetUserListLinux Trae una lista de usuarios compatible con sistemas unix/linux
