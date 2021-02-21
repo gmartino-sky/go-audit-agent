@@ -13,6 +13,7 @@ import (
 	. "github.com/klauspost/cpuid/v2"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/load"
+
 )
 
 //Users crea una matriz de string para listar los usuarios
@@ -79,10 +80,7 @@ func GetUserListLinux() {
 
 	}
 
-	// now we have a list of users
-	// iterate(cycle) each of them to
-	// print out HomeDir, GroupID, description, etc
-
+	// Ahora que tenemos la lista de usuarios iteramos cada uno para imprimir Homedir,GroupID, description,etc
 	for _, name := range Users {
 
 		usr, err := user.Lookup(name)
@@ -90,7 +88,7 @@ func GetUserListLinux() {
 			panic(err)
 		}
 
-		// see https://golang.org/pkg/os/user/#User
+		// ver https://golang.org/pkg/os/user/#User
 		fmt.Printf("username:%s\n", usr.Username)
 		fmt.Printf("homedir:%s\n", usr.HomeDir)
 		fmt.Printf("groupID:%s\n", usr.Gid)
@@ -112,7 +110,7 @@ func ProcessList() {
 	// Valido SO y lista usuarios
 
 	if infoStat.OS == "windows" {
-		//New()
+		
 		GetUserListWindows()
 	} else {
 		GetUserListLinux()
