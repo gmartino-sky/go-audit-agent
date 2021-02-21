@@ -102,7 +102,6 @@ func GetUserListLinux() {
 		fmt.Printf("groupID:%s\n", usr.Gid)
 		fmt.Printf("DisplayName:%s\n", usr.Name)
 		fmt.Println("*********************************")
-
 	}
 }
 
