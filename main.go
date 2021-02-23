@@ -13,7 +13,6 @@ import (
 	. "github.com/klauspost/cpuid/v2"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/load"
-
 )
 
 //Users crea una matriz de string para listar los usuarios
@@ -57,11 +56,11 @@ func GetUserListLinux() {
 	for {
 		line, err := reader.ReadString('\n')
 
-		// skip all line starting with #
+		// skip todas las lineas que empiezen con #
 		if equal := strings.Index(line, "#"); equal < 0 {
-			// get the username and description
+			// Obtengo el username y la descripcion
 			lineSlice := strings.FieldsFunc(line, func(divide rune) bool {
-				return divide == ':' // we divide at colon
+				return divide == ':' // divido por :
 			})
 
 			if len(lineSlice) > 0 {
@@ -110,7 +109,7 @@ func ProcessList() {
 	// Valido SO y lista usuarios
 
 	if infoStat.OS == "windows" {
-		
+
 		GetUserListWindows()
 	} else {
 		GetUserListLinux()
